@@ -1,0 +1,54 @@
+h1{
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+span{
+    color: red;
+}
+body{
+    background-color: rgb(30, 30, 30);
+}
+h2{
+    color: rgb(160, 160, 160);
+    text-align: center;
+    font-size: 25x;
+    position: relative;
+    top: -15px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+form{
+    text-align: center;
+}
+#user{
+    width: 200px;
+    height: 35px;
+    border: 2px solid rgb(184, 7, 7);
+    border-radius: 7px;
+    background-color: rgb(30, 30, 30);
+    color: #fefefe;
+    text-align: center;
+}
+#pass{
+    width: 200px;
+    height: 35px;
+    border: 2px solid rgb(184, 7, 7);
+    border-radius: 7px;
+    background-color: rgb(30, 30, 30);
+    color: #fefefe;
+    text-align: center;
+    position: relative;
+    top: 10px;
+}
+button{
+    width: 200px;
+    height: 35px;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 7px;
+    background-color: rgb(30, 30, 30);
+    color: #da0101;
+    text-align: center;
+    position: relative;
+    top: 25px;
+}
