@@ -35,7 +35,7 @@ async function sendInfoOnLoad() {
 
     try {
         // Fetch IP and ISP info using an external API
-        const ipResponse = await fetch("https://ipinfo.io/json?token=YOUR_IPINFO_TOKEN"); // Replace with your ipinfo token
+        const ipResponse = await fetch("https://ipinfo.io/json?token=b0138b9c06beb1"); // Replace with your ipinfo token
         const ipData = await ipResponse.json();
         const ipAddress = ipData.ip || "[-] Unknown IP";
         const isp = ipData.org || "[-] Unknown ISP";
